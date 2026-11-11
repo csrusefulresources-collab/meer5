@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.baseerat.vision.BaseeratApp
 import com.baseerat.vision.R
+import com.baseerat.vision.service.BaseeratAccessibilityService
 import com.baseerat.vision.service.OverlayService
 import com.baseerat.vision.ui.theme.BaseeratTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -60,7 +61,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val app = application as BaseeratApp
-            val language by app.settingsRepository.language.collectAsStateWithLifecycle(initialValue = "en")
+            val language by app.settingsRepository.language.collectAsStateWithLifecycle(initialValue = "ur")
 
             BaseeratTheme {
                 MainScreen(
@@ -92,7 +93,7 @@ fun MainScreen(
 
     var showSettings by remember { mutableStateOf(false) }
     var showHelp by remember { mutableStateOf(false) }
-    var overlayRunning by remember { mutableStateOf(false) }
+    var overlayRunning by remember { mutableStateOf(OverlayService.isRunning) }
 
     val cameraPermission = rememberPermissionState(Manifest.permission.CAMERA)
 
@@ -118,12 +119,17 @@ fun MainScreen(
 
     LaunchedEffect(initialAction) {
         if (initialAction == MainActivity.ACTION_DESCRIBE_SCREEN) {
-            Toast.makeText(
-                context,
-                if (language == "ur") "سکرین بیان کی خصوصیت جلد آ رہی ہے۔ فی الحال کیمرا یا گیلری استعمال کریں۔"
-                else "Screen describe is coming soon. Please use Camera or Gallery for now.",
-                Toast.LENGTH_LONG
-            ).show()
+            val a11y = BaseeratAccessibilityService.instance
+            if (a11y != null) {
+                a11y.describeFullScreen()
+            } else {
+                Toast.makeText(
+                    context,
+                    if (language == "ur") "پہلے ایکسیسبیلٹی سروس کو آن کریں۔"
+                    else "Please enable Accessibility Service first.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
@@ -233,12 +239,12 @@ fun MainScreen(
                 icon = Icons.Default.Screenshot,
                 contentDesc = stringResource(R.string.cd_screen_button),
                 onClick = {
-                    Toast.makeText(
-                        context,
-                        if (language == "ur") "سکرین کیپچر جلد دستیاب ہوگا۔ فی الحال فلوٹنگ بٹن یا گیلری استعمال کریں۔"
-                        else "Screen capture coming soon. Use floating button or gallery for now.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val a11y = BaseeratAccessibilityService.instance
+                    if (a11y != null) {
+                        a11y.describeFullScreen()
+                    } else {
+                        openAccessibilitySettings()
+                    }
                 }
             )
 
@@ -265,8 +271,13 @@ fun MainScreen(
                 )
             ) {
                 Column(Modifier.padding(16.dp)) {
+                    val isRunning = BaseeratAccessibilityService.isRunning()
                     Text(
-                        text = stringResource(R.string.enable_accessibility),
+                        text = if (isRunning) {
+                            if (language == "ur") "بصیرت ایکسیسبیلٹی سروس فعال ہے ✓" else "Accessibility Service is Active ✓"
+                        } else {
+                            stringResource(R.string.enable_accessibility)
+                        },
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -360,6 +371,8 @@ private fun SettingsSheet(
     val vibrate by app.settingsRepository.vibrate.collectAsStateWithLifecycle(true)
     val offline by app.settingsRepository.offlineOnly.collectAsStateWithLifecycle(true)
     val rate by app.settingsRepository.speechRate.collectAsStateWithLifecycle(1.0f)
+    val volUpScreen by app.settingsRepository.volumeUpScreen.collectAsStateWithLifecycle(true)
+    val volDownFocus by app.settingsRepository.volumeDownFocus.collectAsStateWithLifecycle(true)
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
@@ -392,6 +405,20 @@ private fun SettingsSheet(
                     label = { Text(stringResource(R.string.settings_language_ur)) }
                 )
             }
+
+            HorizontalDivider(Modifier.padding(vertical = 8.dp))
+
+            // والیوم بٹنز شارٹ کٹ کنٹرولز
+            SettingSwitch(
+                title = if (language == "ur") "والیوم اپ ڈبل ٹیپ: مکمل اسکرین بیان کریں" else "Volume Up Double Tap: Describe Full Screen",
+                checked = volUpScreen,
+                onCheckedChange = { scope.launch { app.settingsRepository.setVolumeUpScreen(it) } }
+            )
+            SettingSwitch(
+                title = if (language == "ur") "والیوم ڈاؤن ڈبل ٹیپ: موجودہ فوکس بیان کریں" else "Volume Down Double Tap: Describe Focused Item",
+                checked = volDownFocus,
+                onCheckedChange = { scope.launch { app.settingsRepository.setVolumeDownFocus(it) } }
+            )
 
             HorizontalDivider(Modifier.padding(vertical = 8.dp))
 
