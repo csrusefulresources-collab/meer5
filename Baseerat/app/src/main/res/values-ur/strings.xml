@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">بصیرت</string>
+    <string name="app_tagline">سمجھ کے دیکھیں</string>
+
+    <!-- Accessibility Service -->
+    <string name="accessibility_service_label">بصیرت ایکسیسبیلٹی</string>
+    <string name="accessibility_service_description">بصیرت کو اجازت دیتا ہے کہ وہ سکرین کا مواد بیان کرے اور کسی بھی ایپ پر فلوٹنگ بٹن دکھائے۔ یہ نابینا اور کمزور نظر والے صارفین کو سکرین پر موجود چیزیں سمجھنے میں مدد کرتا ہے۔</string>
+    <string name="accessibility_service_summary">سکرین کا مواد بیان کریں اور فلوٹنگ بٹن دکھائیں</string>
+
+    <!-- Main Screen -->
+    <string name="home_title">بصیرت</string>
+    <string name="home_subtitle">آف لائن بصری سمجھ</string>
+    <string name="btn_camera">کیمرا سے بیان کریں</string>
+    <string name="btn_gallery">گیلری سے بیان کریں</string>
+    <string name="btn_screen">موجودہ سکرین بیان کریں</string>
+    <string name="btn_overlay">فلوٹنگ بٹن دکھائیں</string>
+    <string name="btn_hide_overlay">فلوٹنگ بٹن چھپائیں</string>
+    <string name="btn_settings">ترتیبات</string>
+    <string name="btn_history">تاریخ</string>
+    <string name="btn_ask">سوال پوچھیں</string>
+
+    <!-- Describe -->
+    <string name="describe_title">تفصیل</string>
+    <string name="describe_quick">فوری تفصیل</string>
+    <string name="describe_detailed">تفصیلی بیان</string>
+    <string name="describe_loading">تصویر کو سمجھا جا رہا ہے…</string>
+    <string name="describe_error">اس تصویر کو بیان نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔</string>
+    <string name="describe_no_text">تصویر میں کوئی متن نہیں ملا۔</string>
+    <string name="describe_labels">شناخت شدہ اشیاء:</string>
+    <string name="describe_text">نظر آنے والا متن:</string>
+    <string name="btn_copy">کاپی کریں</string>
+    <string name="btn_share">شیئر کریں</string>
+    <string name="btn_speak">بولیں</string>
+    <string name="btn_ask_followup">مزید سوال پوچھیں</string>
+    <string name="copied">کلپ بورڈ پر کاپی ہو گیا</string>
+
+    <!-- Overlay -->
+    <string name="overlay_permission_title">اوورلے کی اجازت درکار ہے</string>
+    <string name="overlay_permission_message">بصیرت کو دوسرے ایپس پر فلوٹنگ بٹن دکھانے کی اجازت چاہیے۔ اس سے آپ کسی بھی وقت سکرین پر موجود چیز بیان کر سکتے ہیں۔</string>
+    <string name="overlay_permission_grant">اجازت دیں</string>
+    <string name="floating_button_content_desc">بصیرت کا فلوٹنگ بٹن۔ موجودہ سکرین بیان کرنے کے لیے دو بار ٹیپ کریں۔</string>
+    <string name="overlay_menu_camera">کیمرا</string>
+    <string name="overlay_menu_screen">سکرین</string>
+    <string name="overlay_menu_gallery">گیلری</string>
+    <string name="overlay_menu_close">بند کریں</string>
+
+    <!-- Settings -->
+    <string name="settings_title">ترتیبات</string>
+    <string name="settings_language">زبان</string>
+    <string name="settings_language_en">English</string>
+    <string name="settings_language_ur">اردو</string>
+    <string name="settings_speech_rate">بولنے کی رفتار</string>
+    <string name="settings_auto_speak">تفصیل خود بخود بولیں</string>
+    <string name="settings_detailed_default">تفصیلی بیان ترجیح دیں</string>
+    <string name="settings_vibrate">نتیجے پر وائبریٹ کریں</string>
+    <string name="settings_offline_only">صرف آف لائن موڈ</string>
+    <string name="settings_about">بصیرت کے بارے میں</string>
+    <string name="settings_version">ورژن 1.0.0</string>
+
+    <!-- Permissions -->
+    <string name="permission_camera_rationale">کیمرا اس لیے درکار ہے تاکہ آپ جو دیکھ رہے ہیں اس کی تفصیل دی جا سکے۔</string>
+    <string name="permission_denied">اجازت نہیں ملی۔ کچھ فیچرز کام نہیں کریں گے۔</string>
+    <string name="open_settings">ترتیبات کھولیں</string>
+
+    <!-- Accessibility hints -->
+    <string name="cd_camera_button">کیمرا کھولیں تاکہ جو نظر آ رہا ہے بیان ہو</string>
+    <string name="cd_gallery_button">گیلری سے تصویر چنیں اور بیان کریں</string>
+    <string name="cd_screen_button">موجودہ سکرین کا مواد بیان کریں</string>
+    <string name="cd_overlay_button">فلوٹنگ بٹن دکھائیں یا چھپائیں</string>
+    <string name="cd_result_text">تفصیل کا نتیجہ</string>
+    <string name="cd_ask_input">تصویر کے بارے میں اپنا سوال لکھیں</string>
+
+    <!-- Ask / Follow-up -->
+    <string name="ask_hint">اس تصویر کے بارے میں کچھ بھی پوچھیں…</string>
+    <string name="ask_send">بھیجیں</string>
+    <string name="ask_examples">مثالیں: قمیض کا رنگ کیا ہے؟ کوئی متن ہے؟ کتنے لوگ ہیں؟</string>
+
+    <!-- Empty / Help -->
+    <string name="help_title">بصیرت کیسے استعمال کریں</string>
+    <string name="help_body">۱. سسٹم سیٹنگز میں ایکسیسبیلٹی سروس آن کریں۔\n۲. فلوٹنگ بٹن دکھائیں۔\n۳. کوئی بھی ایپ کھولیں اور فلوٹنگ بٹن پر ٹیپ کر کے سکرین بیان کروائیں۔\n۴. یا ہوم سکرین سے کیمرا / گیلری استعمال کریں۔\n۵. تفصیل کے بعد مزید سوال بھی پوچھ سکتے ہیں۔</string>
+    <string name="enable_accessibility">ایکسیسبیلٹی سروس فعال کریں</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_overlay">فلوٹنگ بٹن</string>
+    <string name="notification_overlay_title">بصیرت فعال ہے</string>
+    <string name="notification_overlay_text">فلوٹنگ بٹن دستیاب ہے۔ مینج کرنے کے لیے ٹیپ کریں۔</string>
+
+    <!-- Common -->
+    <string name="ok">ٹھیک ہے</string>
+    <string name="cancel">منسوخ</string>
+    <string name="close">بند کریں</string>
+    <string name="retry">دوبارہ کوشش</string>
+    <string name="loading">لوڈ ہو رہا ہے…</string>
+    <string name="error_generic">کچھ غلط ہو گیا</string>
+</resources>
