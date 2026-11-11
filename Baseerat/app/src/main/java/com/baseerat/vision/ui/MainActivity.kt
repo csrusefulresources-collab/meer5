@@ -182,21 +182,23 @@ fun MainScreen(
                     }
                 },
                 actions = {
+                    val helpCd = stringResource(R.string.help_title)
+                    val settingsCd = stringResource(R.string.btn_settings)
                     IconButton(
                         onClick = { showHelp = true },
                         modifier = Modifier.semantics {
-                            contentDescription = stringResource(R.string.help_title)
+                            contentDescription = helpCd
                         }
                     ) {
-                        Icon(Icons.Default.HelpOutline, contentDescription = null)
+                        Icon(Icons.Default.HelpOutline, contentDescription = helpCd)
                     }
                     IconButton(
                         onClick = { showSettings = true },
                         modifier = Modifier.semantics {
-                            contentDescription = stringResource(R.string.btn_settings)
+                            contentDescription = settingsCd
                         }
                     ) {
-                        Icon(Icons.Default.Settings, contentDescription = null)
+                        Icon(Icons.Default.Settings, contentDescription = settingsCd)
                     }
                 }
             )
