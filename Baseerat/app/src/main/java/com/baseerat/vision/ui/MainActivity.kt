@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,7 +37,6 @@ import com.baseerat.vision.ui.theme.BaseeratTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +44,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Handle share intent
         val sharedUri = when (intent?.action) {
             Intent.ACTION_SEND -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -95,10 +94,8 @@ fun MainScreen(
     var showHelp by remember { mutableStateOf(false) }
     var overlayRunning by remember { mutableStateOf(false) }
 
-    // Camera permission
     val cameraPermission = rememberPermissionState(Manifest.permission.CAMERA)
 
-    // Gallery picker
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -110,7 +107,6 @@ fun MainScreen(
         }
     }
 
-    // Handle initial shared image
     LaunchedEffect(initialSharedUri) {
         initialSharedUri?.let {
             val intent = Intent(context, DescribeActivity::class.java).apply {
@@ -120,10 +116,8 @@ fun MainScreen(
         }
     }
 
-    // Handle overlay action
     LaunchedEffect(initialAction) {
         if (initialAction == MainActivity.ACTION_DESCRIBE_SCREEN) {
-            // For now open describe with a note; real screen capture needs MediaProjection
             Toast.makeText(
                 context,
                 if (language == "ur") "سکرین بیان کی خصوصیت جلد آ رہی ہے۔ فی الحال کیمرا یا گیلری استعمال کریں۔"
@@ -190,7 +184,7 @@ fun MainScreen(
                             contentDescription = helpCd
                         }
                     ) {
-                        Icon(Icons.Default.HelpOutline, contentDescription = helpCd)
+                        Icon(Icons.AutoMirrored.Filled.HelpOutline, contentDescription = helpCd)
                     }
                     IconButton(
                         onClick = { showSettings = true },
@@ -214,15 +208,12 @@ fun MainScreen(
         ) {
             Spacer(Modifier.height(8.dp))
 
-            // Primary actions – large, clear, accessible
             BigActionButton(
                 text = stringResource(R.string.btn_camera),
                 icon = Icons.Default.CameraAlt,
                 contentDesc = stringResource(R.string.cd_camera_button),
                 onClick = {
                     if (cameraPermission.status.isGranted) {
-                        // For simplicity we reuse gallery flow with camera capture in a future iteration.
-                        // Open a simple camera intent or gallery for now.
                         galleryLauncher.launch("image/*")
                     } else {
                         cameraPermission.launchPermissionRequest()
@@ -265,7 +256,6 @@ fun MainScreen(
                 onClick = { toggleOverlay() }
             )
 
-            // Accessibility service card
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -375,6 +365,7 @@ private fun SettingsSheet(
         Column(
             Modifier
                 .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp)
                 .padding(bottom = 32.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -468,3 +459,4 @@ private fun SettingSwitch(
         Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
+

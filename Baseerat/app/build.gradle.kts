@@ -22,6 +22,11 @@ android {
 
         // For GitHub Actions / reproducible builds
         resourceConfigurations += listOf("en", "ur")
+
+        // صرف موبائل فونز کے آرکیٹیکچر شامل کرنے کے لیے (APK سائز 100MB سے کم رکھنے کے لیے)
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+        }
     }
 
     buildTypes {
@@ -106,3 +111,4 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
+

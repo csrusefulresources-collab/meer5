@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -116,7 +116,6 @@ fun DescribeScreen(
         }
     }
 
-    // Auto-run on first composition
     LaunchedEffect(imageUri, detailedDefault) {
         useDetailed = detailedDefault
         runDescribe(detailedDefault)
@@ -152,7 +151,7 @@ fun DescribeScreen(
                         },
                         enabled = result != null
                     ) {
-                        Icon(Icons.Default.VolumeUp, contentDescription = stringResource(R.string.btn_speak))
+                        Icon(Icons.AutoMirrored.Filled.VolumeUp, contentDescription = stringResource(R.string.btn_speak))
                     }
                 }
             )
@@ -166,7 +165,6 @@ fun DescribeScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Image preview
             if (imageUri != null) {
                 Card(
                     modifier = Modifier
@@ -175,13 +173,12 @@ fun DescribeScreen(
                 ) {
                     AsyncImage(
                         model = imageUri,
-                        contentDescription = null, // Decorative; result text is the important part
+                        contentDescription = null,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
 
-            // Mode toggle
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -247,7 +244,6 @@ fun DescribeScreen(
                         )
                     }
 
-                    // Action buttons
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -280,7 +276,6 @@ fun DescribeScreen(
                         }
                     }
 
-                    // Follow-up
                     OutlinedButton(
                         onClick = { showFollowUp = !showFollowUp },
                         modifier = Modifier.fillMaxWidth()
@@ -305,7 +300,6 @@ fun DescribeScreen(
                         )
                         Button(
                             onClick = {
-                                // Simple offline follow-up: answer from already extracted text/labels
                                 val answer = buildFollowUpAnswer(followUpText, r, language)
                                 app.speechHelper.speak(answer)
                                 Toast.makeText(context, answer, Toast.LENGTH_LONG).show()
@@ -350,7 +344,6 @@ private fun buildFollowUpAnswer(
             }
         }
         else -> {
-            // Fallback to summary
             if (isUrdu) "موجودہ معلومات کی بنیاد پر: ${result.summary}"
             else "Based on current analysis: ${result.summary}"
         }
@@ -376,3 +369,4 @@ private fun vibrate(context: Context) {
         }
     } catch (_: Exception) { }
 }
+
